@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start-work": "open ./misc/Project_5.app ./misc/Rubric.app https://github.com/liammcintosh97/npl-evaluator"
+    "start-work": "open ./misc/Project_5.app ./misc/Rubric.app https://github.com/liammcintosh97/npl-evaluator",
+    "build-prod": "webpack --config webpack.prod.js",
+    "build-dev": "webpack serve  --config webpack.dev.js --open",
+    "start": "node ./src/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,9 +43,13 @@
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.32.0",
-    "webpack-cli": "^4.6.0"
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2",
+    "workbox-webpack-plugin": "^6.1.5"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "webpack": "^5.32.0"
   }
 }
