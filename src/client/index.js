@@ -1,4 +1,6 @@
-import { click } from "./js/clickMe.js";
-import "./styles/test.scss";
+import { initializeTypeSelectors } from "./js/typeSelector.js";
+import "./styles/main.scss";
 
-document.getElementsByTagName("button")[0].addEventListener("click",click);
+initializeTypeSelectors();
+
+export {initializeTypeSelectors}

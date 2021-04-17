@@ -1,0 +1,45 @@
+@import "form.scss";
+@import "header.scss";
+@import "summary.scss";
+
+body{
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 15vh 80vh 5vh;
+  grid-template-areas:
+  "hd"
+  "mn"
+  "ft";
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+
+header{
+  grid-area: hd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main{
+  display: flex;
+  grid-area: mn;
+  justify-content: center;
+}
+
+.summarizer{
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  margin: 5px;
+  max-width: 1000px;
+}
+
+@media screen and (max-width: 992px) {
+  body{
+    font-size: smaller;
+  }
+}

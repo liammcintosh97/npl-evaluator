@@ -1,0 +1,27 @@
+form{
+  display: flex;
+  flex-direction: column;
+
+  div{
+    display: flex;
+    flex-direction: column;
+
+    input{
+      margin: 0.1em 0 0.4em 0;
+    }
+
+    textarea {
+      margin: 0.1em 0 0.4em 0;
+      resize: none;
+    }
+  }
+
+  #submit-button{
+    height: 50px
+  }
+
+  #url.type-input-container,#file.type-input-container{
+    display: none;
+  }
+}
+

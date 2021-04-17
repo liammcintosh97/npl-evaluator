@@ -10,7 +10,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 module.exports = {
   entry: './src/client/index.js',
   mode: 'production',
-  evtool: 'source-map',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, "dist"),
     libraryTarget: 'var',
@@ -23,9 +23,7 @@ module.exports = {
     rules: [
       {
         test: '/\.js$/',
-        exclude: {
-          test: /node_modules/
-        },
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {

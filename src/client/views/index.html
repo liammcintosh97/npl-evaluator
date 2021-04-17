@@ -2,18 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NPL Evaluator</title>
-    <meta name="description" content="Evaluate a news article with Natural Language Processing">
+    <title>Summarizer</title>
+    <meta name="description" content="Summarizes text, a url or a file with Natural Language Processing">
     <meta name="author" content="Liam McIntosh">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <div>
-      <h1>Hello World!</h1>
-      <button>Click me</button>
-    </div>
+    <header>
+      <h1>Summarizer</h1>
+      <div class="sub-heading">Submit a piece of <a id="text" class="type-selector">text</a>, <a id="url" class="type-selector">url</a> or a <a id="file" class="type-selector">file</a> and receive a summary</div>
+    </header>
+    <main>
+      <div class="summarizer">
+        <form>
 
+          <div id="text" class="type-input-container">
+            <label for="text-input">Text Input</label>
+            <textarea type="text" id="text-input" rows="20"></textarea>
+          </div>
+
+          <div id="url" class="type-input-container">
+            <label for="url-input">URL Input</label>
+            <input type="url" id="url-input">
+          </div>
+
+          <div id="file" class="type-input-container">
+            <label for="file-input">File Input</label>
+            <input type="file" id="file-input">
+          </div>
+
+          <input type="submit" id="submit-button">
+      </form>
+
+      <div class="summary-container">
+        <h2>Summary</h2>
+        <div class="summary">Summary</div>
+      </div>
+      </div>
+    </main>
 
     <script>
       // Check that service workers are supported

@@ -6,7 +6,7 @@ const port = 8081
 
 dotenv.config();
 
-app.use(express.static('dist'))
+app.use(express.static(__dirname + '/dist'))
 
 app.get("/",(req,res) =>{
   res.sendFile("dist/index.html");
