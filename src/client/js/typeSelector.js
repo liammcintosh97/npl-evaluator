@@ -22,11 +22,13 @@ class TypeSelector{
     if(_selected){
       this.formField.style.display = "flex"
       this.selector.style.textDecoration = "underline"
+      this.selector.classList.add("selected");
     }
     //Wasn't Selected
     else{
       this.formField.style.display = "none"
       this.selector.style.textDecoration = "unset"
+      this.selector.classList.remove("selected");
     }
   }
 }

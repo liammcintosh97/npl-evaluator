@@ -32,7 +32,24 @@
             <input type="file" id="file-input">
           </div>
 
-          <input type="submit" id="submit-button">
+          <div class="form-footer">
+
+            <div class="dropdown">
+              <div class ="selection-container">
+                <button type="button">Sentence Length</button>
+                <div class="selection">5</div>
+              </div>
+
+              <div class="content">
+                <div class="option">5</div>
+                <div class="option">10</div>
+                <div class="option">15</div>
+                <div class="option">20</div>
+              </div>
+            </div>
+
+            <button type="button" id="submit-button">Submit</button>
+          </div>
       </form>
 
       <div class="summary-container">
@@ -43,6 +60,8 @@
     </main>
 
     <script>
+      Client.initializeForm();
+
       // Check that service workers are supported
       if ('serviceWorker' in navigator) {
         // Use the window load event to keep the page load performant

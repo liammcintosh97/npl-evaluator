@@ -16,12 +16,19 @@ form{
     }
   }
 
-  #submit-button{
-    height: 50px
-  }
-
   #url.type-input-container,#file.type-input-container{
     display: none;
+  }
+
+  .form-footer{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+
+    #submit-button{
+      height: 50px;
+      flex-grow: 1;
+    }
   }
 }
 
