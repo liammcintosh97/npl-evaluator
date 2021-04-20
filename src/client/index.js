@@ -5,5 +5,6 @@ import "./styles/main.scss";
 
 initializeTypeSelectors();
 initializeDropDowns();
+initializeForm();
 
-export {initializeTypeSelectors,initializeDropDowns,initializeForm}
+export default {initializeTypeSelectors,initializeDropDowns,initializeForm};

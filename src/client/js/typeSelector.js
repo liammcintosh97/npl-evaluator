@@ -5,6 +5,7 @@ const types = {
 }
 
 let selectors = [];
+let summaryElement;
 
 class TypeSelector{
 
@@ -38,6 +39,7 @@ export function initializeTypeSelectors(){
   let subHeading = document.getElementsByClassName("sub-heading")[0];
   let selectorElements = document.getElementsByClassName("type-selector");
   let fieldElements = document.getElementsByClassName("type-input-container");
+  summaryElement = document.getElementsByClassName("summary")[0];
 
   subHeading.addEventListener("click",onSubHeadingClick)
 
@@ -72,6 +74,7 @@ function onSubHeadingClick(event){
 
 function updateSelectors(clickedSelector){
 
+  summaryElement.innerText = "";
   let selectedType = clickedSelector.id;
 
   for(let i = 0; i < selectors.length; i++){
