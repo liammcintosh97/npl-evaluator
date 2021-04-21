@@ -49,6 +49,8 @@ async function onFormSubmit(){
   selectedType = document.getElementsByClassName("selected")[0].innerText;
   let submissionData = getSubmissionData(selectedType);
 
+  console.log(submissionData);
+
   var data = {
     type: selectedType,
     sentence: sentenceLength,
@@ -67,12 +69,10 @@ async function onFormSubmit(){
   });
 }
 
-function getSubmissionData(_selectedType){
+export function getSubmissionData(_selectedType){
 
   switch(_selectedType){
     case "file":
-      console.log(fields.file);
-      console.log(JSON.stringify(fields.file.files[0]));
       return fields.file.files[0];
     case "url":
       return fields.url.value;

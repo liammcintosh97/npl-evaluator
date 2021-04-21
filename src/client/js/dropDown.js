@@ -7,11 +7,11 @@ export function initializeDropDowns(){
     var contentElement = dropDowns[i].getElementsByClassName("content")[0];
     var selectionElement =  dropDowns[i].getElementsByClassName("selection")[0];
 
-    contentElement.addEventListener("click",onContentClick.bind(selectionElement));
+    contentElement.addEventListener("click",onContentClick);
   }
 }
 
-function onContentClick(event,selectionElement){
+function onContentClick(event){
 
   if(event.target.className === "option"){
     let option = event.target;

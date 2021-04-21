@@ -6,7 +6,6 @@ const cors = require('cors');
 const fetch = require("node-fetch");
 const { validate } = require('webpack');
 
-
 dotenv.config();
 
 /* Start Server */
@@ -18,7 +17,7 @@ app.listen(port, function () {
   console.log('NPL Evaluator is listening on port 8081! - http://localhost:8081/')
  })
 //Initialize the main project folder
-app.use(express.static(__dirname + '/dist'))
+app.use(express.static("dist"))
 
 /* Middleware */
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +27,7 @@ app.use(cors());
 /* Routing */
 
 app.post("/summarize",(req,res) =>{
+
 
   var sentence = req.body.sentence;
   var type = req.body.type;
@@ -39,7 +39,6 @@ app.post("/summarize",(req,res) =>{
   }
   Object.assign(resBody,resBody,validation);
 
-  console.log(resBody);
 
   if(validation.status === "failed"){
     res.send(resBody);
@@ -48,7 +47,6 @@ app.post("/summarize",(req,res) =>{
 
   var parameters = `?key=${process.env.API_KEY}&sentences=${sentence}&${getTypeParameters(type)}${value}`;
   console.log(parameters);
-
   fetch(encodeURI(`https://api.meaningcloud.com/summarization-1.0${parameters}`))
   .then(response => response.json())
   .then(data => {
@@ -59,7 +57,8 @@ app.post("/summarize",(req,res) =>{
 })
 
 app.get("/",(req,res) =>{
-  res.sendFile("dist/index.html");
+  console.log(__dirname);
+  res.sendFile('dist/index.html');
 })
 
 /* Functions */
@@ -77,6 +76,8 @@ function getTypeParameters(type){
 }
 
 function validateData(type,value){
+
+  console.log(value);
 
   if(value === undefined || value === null || value === ""){
     return {
