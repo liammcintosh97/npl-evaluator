@@ -1,0 +1,25 @@
+header{
+  padding: 0.4em 0 0.4em 0;
+
+  h1,.sub-heading{
+    margin: 0.4em 0 0.4em 0;
+  }
+
+  .sub-heading{
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    font-size: 16px;
+    height: 30px;
+  }
+
+  .type-selector{
+    display: inline-block;
+    font-weight: bold;
+    margin: 0 0.25em 0 0.25em;
+
+    &:hover{
+      font-size: 120%;
+    }
+  }
+}
