@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fetch = require("node-fetch");
 const { validate } = require('webpack');
+var FormData = require('form-data');
+var fs = require('fs');
+var https = require('https');
 
 dotenv.config();
 
@@ -28,31 +31,25 @@ app.use(cors());
 
 app.post("/summarize",(req,res) =>{
 
-
-  var sentence = req.body.sentence;
   var type = req.body.type;
+  var format_type = req.body.format_type;
   var value = req.body.value;
 
-  let validation = validateData(type,value);
-  let resBody = {
-    data: undefined,
-  }
-  Object.assign(resBody,resBody,validation);
-
-
-  if(validation.status === "failed"){
-    res.send(resBody);
-    return;
-  }
-
-  var parameters = `?key=${process.env.API_KEY}&sentences=${sentence}&${getTypeParameters(type)}${value}`;
-  console.log(parameters);
-  fetch(encodeURI(`https://api.meaningcloud.com/summarization-1.0${parameters}`))
+  fetch(encodeURI(`https://api.meaningcloud.com/sentiment-2.1${constructParameters(process.env.API_KEY,type,format_type,value)}`))
   .then(response => response.json())
   .then(data => {
-    resBody.data = data;
 
-    res.send(resBody);
+    let sentiment = {
+      status: data.status,
+      score_tag: data.score_tag,
+      agreement: data.agreement,
+      subjectivity: data.subjectivity,
+      confidence: data.confidence,
+      irony: data.irony
+    };
+
+    console.log(sentiment);
+    res.send(sentiment);
   });
 })
 
@@ -63,45 +60,31 @@ app.get("/",(req,res) =>{
 
 /* Functions */
 
-function getTypeParameters(type){
+function constructParameters(key,type,format_type,value){
+  let parameters =[
+    `key=${key}`,
+    `of=json`,
+    `lang=en`,
+    `ilang=en`,
+    `${type}=${value}`,
+    `"txtf=${format_type}`,
+    `model=general`,
+    `verbose=n`,
+    `egp=n`,
+    `rt=n`,
+    `uw=n`,
+    `dm=s`,
+    `sdg=l`,
+    `cont=printing`
+  ]
+  let params = "?";
 
-  switch(type){
-     case "file":
-       return "doc="
-      case "url":
-        return "url=";
-      case "text":
-        return "txt=";
-   }
-}
-
-function validateData(type,value){
-
-  console.log(value);
-
-  if(value === undefined || value === null || value === ""){
-    return {
-      status: "failed",
-      msg: `The ${type} you submitted is undefined`
-    };
+  for(let i = 0; i < parameters.length; i++){
+    params += parameters[i] + "&";
   }
 
-  switch(type){
-     case "url":
-        if(/^(ftp|http|https):\/\/[^ "]+$/.test(value) === false){
-          return {
-            status: "failed",
-            msg: "The entered url is not valid",
-          };
-        }
-        else{
-          return {
-            status: "success"
-          }
-        }
-    default:
-      return {
-        status: "success"
-      }
-  }
+  console.log(params);
+  return params;
 }
+
+
