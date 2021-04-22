@@ -2,17 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Summarizer</title>
-    <meta name="description" content="Summarizes text, a url or a file with Natural Language Processing">
+    <title>Sentiment Analyser</title>
+    <meta name="description" content="Analyse text, a url or a file's sentiment with Natural Language Processing">
     <meta name="author" content="Liam McIntosh">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <header>
-      <h1>Summarizer</h1>
+      <h1>Sentiment Analyser</h1>
       <!-- <div class="sub-heading">Submit a piece of <a id="text" class="type-selector">text</a>, <a id="url" class="type-selector">url</a> or a <a id="file" class="type-selector">file</a> and receive a summary</div> -->
-      <div class="sub-heading">Submit a piece of <a id="text" class="type-selector">text</a> or a <a id="url" class="type-selector">url</a>  and receive a summary</div>
+      <div class="sub-heading">Submit a piece of <a id="text" class="type-selector">text</a> or a <a id="url" class="type-selector">url</a>  and receive an evaluation based on sentiment</div>
     </header>
     <main>
       <div class="summarizer">
@@ -37,15 +37,13 @@
 
             <div class="dropdown">
               <div class ="selection-container">
-                <button type="button">Sentence Length</button>
-                <div class="selection">5</div>
+                <button type="button">Text Format</button>
+                <div class="selection">Plain Text</div>
               </div>
 
               <div class="content">
-                <div class="option">5</div>
-                <div class="option">10</div>
-                <div class="option">15</div>
-                <div class="option">20</div>
+                <div class="option">Plain Text</div>
+                <div class="option">Markup Language</div>
               </div>
             </div>
 
@@ -53,9 +51,9 @@
           </div>
       </form>
 
-      <div class="summary-container">
-        <h2>Summary</h2>
-        <div class="summary"></div>
+      <div class="sentiment-container">
+        <h2>Sentiment</h2>
+        <div class="sentiment"></div>
       </div>
       </div>
     </main>

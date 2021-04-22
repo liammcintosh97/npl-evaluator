@@ -21,3 +21,17 @@ function onContentClick(event){
     selectionElement.innerText = selection;
   }
 }
+
+export function getTextFormatParameter(textFormat){
+  switch(textFormat){
+    case "Plain Text":
+      return "plain"
+     case "Markup Language":
+       return "markup";
+  }
+}
+
+export default{
+  getTextFormatParameter,
+  initializeDropDowns
+}

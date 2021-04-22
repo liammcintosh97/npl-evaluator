@@ -1,23 +1,26 @@
 import "regenerator-runtime/runtime.js";
+import { getTypeParameter} from "./typeSelector.js";
+import { getTextFormatParameter} from "./dropDown.js";
 
 const baseSeverURL = "http://localhost"
 const serverPort = ":8081"
 
 let selectedType;
-let sentenceLength;
+let selectedTextFormat;
 let submitButton;
-let summaryElement;
-let fields;
+let sentimentElement;
+let submissionValue;
+let formFields;
 
 export function initializeForm(){
   submitButton = document.getElementById("submit-button");
-  summaryElement = document.getElementsByClassName("summary")[0];
-  fields = getFields();
+  sentimentElement = document.getElementsByClassName("sentiment")[0];
+  formFields = getFormFields();
 
   submitButton.addEventListener("click",onFormSubmit)
 }
 
-function getFields(){
+function getFormFields(){
   let fields = {
     file: null,
     url: null,
@@ -45,39 +48,41 @@ function getFields(){
 }
 
 async function onFormSubmit(){
-  sentenceLength =  document.getElementsByClassName("selection")[0].innerText;
+  selectedTextFormat =  document.getElementsByClassName("selection")[0].innerText;
   selectedType = document.getElementsByClassName("selected")[0].innerText;
-  let submissionData = getSubmissionData(selectedType);
+  submissionValue = getSubmissionValue(selectedType);
 
-  console.log(submissionData);
+  console.log(submissionValue);
 
   var data = {
-    type: selectedType,
-    sentence: sentenceLength,
-    value: submissionData
+    type: getTypeParameter(selectedType),
+    format_type: getTextFormatParameter(selectedTextFormat),
+    value: submissionValue
+  }
+
+  let validation = validateValue(selectedType,submissionValue);
+
+  if(validation.status === "failed"){
+    alert(validation.msg);
+    return;
   }
 
   PostData(`${baseSeverURL}${serverPort}/summarize`,data).then(res =>{
-
-    if(res.status === "failed"){
-      alert(res.msg);
-    }
-    else{
-      summaryElement.innerText = res.data.summary
-    }
+    console.log(res);
+    sentimentElement.innerText = formatSentiment(res);
 
   });
 }
 
-export function getSubmissionData(_selectedType){
+function getSubmissionValue(_selectedType){
 
   switch(_selectedType){
     case "file":
-      return fields.file.files[0];
+      return formFields.file.files[0];
     case "url":
-      return fields.url.value;
+      return formFields.url.value;
     case "text":
-      return fields.text.value;
+      return formFields.text.value;
   }
 }
 
@@ -103,4 +108,47 @@ async function PostData(url,data){
   }catch(error){
     console.log("error",error);
   }
+}
+
+function formatSentiment(sentimentData){
+  return `Score Tag: ${sentimentData.score_tag}
+  Agreement: ${sentimentData.agreement}
+  Subjectivity: ${sentimentData.subjectivity}
+  Confidence: ${sentimentData.confidence}
+  Irony: ${sentimentData.irony}
+  `
+}
+
+export function validateValue(type,value){
+
+  if(value === undefined || value === null || value === ""){
+    return {
+      status: "failed",
+      msg: `The ${type} you submitted is undefined`
+    };
+  }
+
+  switch(type){
+     case "url":
+        if(/^(ftp|http|https):\/\/[^ "]+$/.test(value) === false){
+          return {
+            status: "failed",
+            msg: "The entered url is not valid",
+          };
+        }
+        else{
+          return {
+            status: "success"
+          }
+        }
+    default:
+      return {
+        status: "success"
+      }
+  }
+}
+
+export default{
+  initializeForm,
+  validateValue,
 }

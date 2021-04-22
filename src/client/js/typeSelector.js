@@ -4,8 +4,8 @@ const types = {
   text: "text"
 }
 
-let selectors = [];
-let summaryElement;
+let typeSelectors = [];
+let sentimentElement;
 
 class TypeSelector{
 
@@ -39,7 +39,7 @@ export function initializeTypeSelectors(){
   let subHeading = document.getElementsByClassName("sub-heading")[0];
   let selectorElements = document.getElementsByClassName("type-selector");
   let fieldElements = document.getElementsByClassName("type-input-container");
-  summaryElement = document.getElementsByClassName("summary")[0];
+  sentimentElement = document.getElementsByClassName("sentiment")[0];
 
   subHeading.addEventListener("click",onSubHeadingClick)
 
@@ -49,7 +49,7 @@ export function initializeTypeSelectors(){
     for(let j = 0; j < fieldElements.length; j++){
       if(type === fieldElements[j].id){
         let typeSelector = new TypeSelector(selectorElements[i],fieldElements[j],type);
-        selectors.push(typeSelector);
+        typeSelectors.push(typeSelector);
       }
     }
   }
@@ -58,8 +58,8 @@ export function initializeTypeSelectors(){
 }
 
 function getSelector(_type){
-  for(let i = 0; i < selectors.length; i++){
-    if(_type === selectors[i].type) return selectors[i];
+  for(let i = 0; i < typeSelectors.length; i++){
+    if(_type === typeSelectors[i].type) return typeSelectors[i];
   }
 }
 
@@ -74,17 +74,33 @@ function onSubHeadingClick(event){
 
 function updateSelectors(clickedSelector){
 
-  summaryElement.innerText = "";
+  sentimentElement.innerText = "";
   let selectedType = clickedSelector.id;
 
-  for(let i = 0; i < selectors.length; i++){
-    if(selectedType === selectors[i].type){
-       selectors[i].select(true)
+  for(let i = 0; i < typeSelectors.length; i++){
+    if(selectedType === typeSelectors[i].type){
+       typeSelectors[i].select(true)
     }
     else{
-      selectors[i].select(false)
+      typeSelectors[i].select(false)
     }
   }
 }
 
+export function getTypeParameter(type){
+
+  switch(type){
+     case "file":
+       return "doc"
+      case "url":
+        return "url";
+      case "text":
+        return "txt";
+   }
+}
+
+export default{
+  getTypeParameter,
+  initializeTypeSelectors,
+}
 
